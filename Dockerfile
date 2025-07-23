@@ -54,4 +54,9 @@ RUN rm -f index.html \
  && chmod 777 filestore \
  && chmod -R 777 include/
 
-CMD apachectl -D FOREGROUND
+# Copy custom entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Start both cron and Apache
+CMD ["/entrypoint.sh"]
