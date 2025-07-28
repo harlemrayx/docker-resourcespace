@@ -6,9 +6,8 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - include:/var/www/html/include
       - filestore:/var/www/html/filestore
-      - ./testdir:/srv/storage/testdir
+      - ./config.php:/var/www/html/include/config.php
     networks:
       - frontend
       - backend
