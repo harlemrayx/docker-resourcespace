@@ -49,9 +49,15 @@ ADD cronjob /etc/cron.daily/resourcespace
 WORKDIR /var/www/html
 
 RUN rm -f index.html \
- && svn co -q https://svn.resourcespace.com/svn/rs/releases/10.5 . \
+ && svn co -q https://svn.resourcespace.com/svn/rs/releases/10.6 . \
  && mkdir -p filestore \
  && chmod 777 filestore \
  && chmod -R 777 include/
+ 
 
-CMD apachectl -D FOREGROUND
+# Copy custom entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Start both cron and Apache
+CMD ["/entrypoint.sh"]
